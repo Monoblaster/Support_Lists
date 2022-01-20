@@ -34,14 +34,14 @@ function List::GetRow(%list,%tag)
     return %list.row[%tag];
 }
 
-function List::Gettag(%list,%row)
+function List::GetTag(%list,%row)
 {
     return getWord(%list.string,%row);
 }
 
 function List::GetValue(%list,%row)
 {
-    return %list.value[%list.gettag(%row)];
+    return %list.value[%list.getTag(%row)];
 }
 
 function List::FindValue(%list,%Value)
@@ -50,7 +50,7 @@ function List::FindValue(%list,%Value)
     for(%i = 0; %i < %count; %i++)
     {
         %thisValue = %list.getValue(%i);
-        if(strPos(%thisValue,%Value))
+        if(strPos(%thisValue,%Value) >= 0)
         {
             return %i;
         }
