@@ -1,6 +1,9 @@
 function List_NewList()
 {
-    %list = new ScriptObject(){class = "List";};
+    %list = new ScriptObject()
+	{
+		class = "List";
+	};
 
     return %list;
 }
@@ -76,8 +79,9 @@ function List::Set(%list,%row,%Value,%tag)
 {
 	if(%tag $= "")
 	{
-		%tag = %row;
+		%tag = %list.adds + 0;
 	}
+	%list.adds++;
 
 	%safety = 0;
 	while(%list.istag(%tag))
@@ -185,17 +189,4 @@ function list_numericalSort(%list,%pivot,%i,%direction,%reverse)
     while(%list.getValue(%i += %direction) * %modifier < %pivot * %modifier){}
 	
 	return %i;
-}
-function listTest()
-{
-	%list = list_newlist();
-	for(%i = 0; %i < 10; %i++)
-	{
-		%list.add(getRandom(0,1) * 6);
-	}
-	%list.listvalues();
-	echo("sorted:");
-	%list.sort(false);
-    %list.listvalues();
-	return %list;
 }
