@@ -79,20 +79,28 @@ function List::Set(%list,%row,%Value,%tag)
 {
 	if(%tag $= "")
 	{
-		%tag = %list.adds + 0;
+		%tag = %list.getTag(%row);
 	}
-	%list.adds++;
 
-	%safety = 0;
-	while(%list.istag(%tag))
+	if(!%list.istag(%tag))
 	{
-		%tag = getRandom(0,999999);
-		%safety++;
-		
-		if(%safety > 100)
+		if(%tag $= "")
 		{
-			warn("Lists: Set tag failure");
-			return "";
+			%tag = %list.adds + 0;
+			%list.adds++;
+		}
+
+		%safety = 0;
+		while(%list.istag(%tag))
+		{
+			%tag = getRandom(0,999999);
+			%safety++;
+			
+			if(%safety > 100)
+			{
+				warn("Lists: Set tag failure");
+				return "";
+			}
 		}
 	}
 	
